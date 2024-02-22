@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:getx_bottom_navigation_bar/pages/add/add_page.dart';
+import 'package:getx_bottom_navigation_bar/pages/dashboard/dashboard_controller.dart';
 import 'package:getx_bottom_navigation_bar/pages/home/home_page.dart';
 import 'package:getx_bottom_navigation_bar/pages/messages/messages_page.dart';
 import 'package:getx_bottom_navigation_bar/pages/users/users_page.dart';
@@ -20,74 +22,64 @@ class _MyDashBoardState extends State<MyDashBoard> {
   final _inactiveColor = Colors.grey;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: const Text("Custom Animated Bottom Navigation Bar"),
-          backgroundColor: Colors.green[200],
-        ),
-        body: getBody(),
-        bottomNavigationBar: _buildBottomBar()
-    );
-  }
-
-  Widget _buildBottomBar(){
-    return CustomAnimatedBottomBar(
-      containerHeight: 70,
-      backgroundColor: Colors.white,
-      selectedIndex: _currentIndex,
-      showElevation: true,
-      itemCornerRadius: 24,
-      curve: Curves.easeIn,
-      onItemSelected: (index) => setState(() => _currentIndex = index),
-      items: <BottomNavyBarItem>[
-        BottomNavyBarItem(
-          icon: const Icon(Icons.apps),
-          title: const Text('Home'),
-          activeColor: Colors.green,
-          inactiveColor: _inactiveColor,
-          textAlign: TextAlign.center,
-        ),
-        BottomNavyBarItem(
-          icon: const Icon(Icons.people),
-          title: const Text('Users'),
-          activeColor: Colors.purpleAccent,
-          inactiveColor: _inactiveColor,
-          textAlign: TextAlign.center,
-        ),
-        BottomNavyBarItem(
-          icon: const Icon(Icons.message),
-          title: const Text(
-            'Messages ',
+    return GetBuilder<DashBoardController>(builder: (controller) {
+      return Scaffold(
+        body: SafeArea(
+          child: IndexedStack(
+            index: controller.tabIndex,
+            children: [
+              HomePage(),
+              UsersPage(),
+              MessagesPage(),
+              AddPage(),
+            ],
           ),
-          activeColor: Colors.pink,
-          inactiveColor: _inactiveColor,
-          textAlign: TextAlign.center,
         ),
-        BottomNavyBarItem(
-          icon: const Icon(Icons.settings),
-          title: const Text('Settings'),
-          activeColor: Colors.blue,
-          inactiveColor: _inactiveColor,
-          textAlign: TextAlign.center,
-        ),
-      ],
-    );
+        bottomNavigationBar: CustomAnimatedBottomBar(
+          containerHeight: 70,
+          backgroundColor: Colors.white,
+          selectedIndex: controller.tabIndex,
+          showElevation: true,
+          itemCornerRadius: 24,
+          curve: Curves.easeIn,
+          onItemSelected: controller.changeTabIndex,
+          items: <BottomNavyBarItem>[
+            BottomNavyBarItem(
+              icon: const Icon(Icons.apps),
+              title: const Text('Home'),
+              activeColor: Colors.green,
+              inactiveColor: _inactiveColor,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              icon: const Icon(Icons.people),
+              title: const Text('Users'),
+              activeColor: Colors.purpleAccent,
+              inactiveColor: _inactiveColor,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              icon: const Icon(Icons.message),
+              title: const Text(
+                'Messages ',
+              ),
+              activeColor: Colors.pink,
+              inactiveColor: _inactiveColor,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              icon: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              activeColor: Colors.blue,
+              inactiveColor: _inactiveColor,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),   
+      );
+    });
   }
 
-
-  Widget getBody() {
-    List<Widget> pages = [
-      const HomePage(),
-      const UsersPage(),
-      const MessagesPage(),
-      const AddPage(),
-    ];
-    return IndexedStack(
-      index: _currentIndex,
-      children: pages,
-    );
-  }
 
 
 }

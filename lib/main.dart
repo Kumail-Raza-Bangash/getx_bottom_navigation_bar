@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:getx_bottom_navigation_bar/pages/dashboard/dashboard.dart';
+import 'package:getx_bottom_navigation_bar/pages/dashboard/dashboard_binding.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,13 +13,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyDashBoard(),
+
+      initialRoute: "/",
+      getPages: [
+        GetPage(
+          name: '/', 
+          page: () => const MyDashBoard(),
+          binding: DashBoardBinding(),
+        ),
+      ],
+
+      //home: const MyDashBoard(),
     );
   }
 }
