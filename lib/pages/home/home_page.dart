@@ -18,12 +18,10 @@ class HomePage extends GetView<HomePageController> {
         elevation: 0,
         backgroundColor: Colors.white,
       ),
-      body: Container(
-        child: const Center(
-          child: Text(
-            "Home Page",
-            style: TextStyle(fontSize: 20),
-          ),
+      body: const Center(
+        child: Text(
+          "Home Page",
+          style: TextStyle(fontSize: 20),
         ),
       ),
     );

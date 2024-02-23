@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:getx_bottom_navigation_bar/pages/add/add_controller.dart';
 
-class AddPage extends StatefulWidget {
-  const AddPage({Key? key}) : super(key: key);
+class AddPage extends GetView<AddController> {
+  const AddPage({super.key});
 
-  @override
-  _AddPageState createState() => _AddPageState();
-}
 
-class _AddPageState extends State<AddPage> {
-  int counter=0;
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -18,8 +15,7 @@ class _AddPageState extends State<AddPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                "$counter"
+              Obx( () => Text("${controller.counter.value}"),
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -31,9 +27,7 @@ class _AddPageState extends State<AddPage> {
                 ),
                 child: const Text("Increase"),
                 onPressed: (){
-                  setState(() {
-                    counter++;
-                  });
+                  controller.increaseValue();
                 },
               ),
 

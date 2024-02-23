@@ -7,4 +7,5 @@ class DashBoardController extends GetxController{
     tabIndex = index;
     update();
   }
+
 }

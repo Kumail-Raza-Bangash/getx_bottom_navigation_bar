@@ -17,7 +17,6 @@ class MyDashBoard extends StatefulWidget {
 }
 
 class _MyDashBoardState extends State<MyDashBoard> {
-  int _currentIndex = 0;
 
   final _inactiveColor = Colors.grey;
   @override
